@@ -14,15 +14,18 @@ DROP TABLE IF EXISTS Users;
 -- 1. CREATE USERS TABLE
 -- =========================================================================
 CREATE TABLE Users (
-    user_id TYPE,
-    full_name TYPE,
-    email TYPE,
-    role TYPE,
-    phone_number TYPE,
+    user_id serial,
+    full_name varchar(100),
+    email varchar(100),
+    role varchar(30),
+    phone_number varchar(20),
     
     -- Write your constraint to make 'user_id' the Primary Key
+    constraint pk_users primary key (user_id),
     -- Write your constraint to ensure 'email' values are never duplicated
+    constraint uq_user_email unique (email),
     -- Write your check constraint to restrict 'role' to specific allowed strings
+    constraint ck_user_role check (role in ('Ticket Manager', 'Football Fan'))
 );
 
 -- =========================================================================
