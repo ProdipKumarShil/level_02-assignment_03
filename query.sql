@@ -115,3 +115,7 @@ where payment_status is null
 -- Query 4: Retrieve match booking details along with the User's full name and the scheduled Match fixture teams.
 select booking_id, full_name, fix from bookings
 inner join users on users.user_id = bookings.user_id
+
+-- Query 6: Find all ticket bookings where the total cost is strictly higher than the average cost of all ticket bookings.
+select booking_id, match_id, total_cost from bookings
+where total_cost > (select avg(total_cost) from bookings)
