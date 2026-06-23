@@ -113,8 +113,9 @@ select booking_id, user_id, match_id, coalesce(payment_status, 'Action Required'
 where payment_status is null
 
 -- Query 4: Retrieve match booking details along with the User's full name and the scheduled Match fixture teams.
-select booking_id, full_name, fix from bookings
-inner join users on users.user_id = bookings.user_id
+select booking_id, full_name, fixture, total_cost from bookings
+inner join users on bookings.user_id = users.user_id
+inner join matches on bookings.match_id = matches .match_id
 
 -- Query 6: Find all ticket bookings where the total cost is strictly higher than the average cost of all ticket bookings.
 select booking_id, match_id, total_cost from bookings
@@ -123,4 +124,4 @@ where total_cost > (select avg(total_cost) from bookings)
 -- Query 7: Retrieve the top 2 most expensive matches sorted by base ticket price, skipping the absolute highest premium match.
 select match_id, fixture, base_ticket_price from matches
 order by base_ticket_price desc
-limit 4 offset 1
+limit 2 offset 1
